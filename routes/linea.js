@@ -15,4 +15,21 @@ app.get('/', async (req, res) => {
   }
 })
 
+// POST api/questions
+app.post('/', (req, res) => {
+  const linea = req.body
+  linea._id = +new Date()
+  linea.user = {
+    email: 'jzamora',
+    password: '123456',
+    firstname: 'jose luis',
+    lastname: 'zamora'
+  },
+  linea.createdAt = new Date(),
+  linea.answers = []
+
+  debug('New Linea')
+  debug(linea)
+})
+
 export default app
