@@ -1,7 +1,5 @@
 import express from 'express'
 import Debug from 'debug'
-// import { required, questionMiddleware } from '../middleware'
-// import { question } from '../db-api'
 import { handleError } from '../utils'
 const Sequelize = require('sequelize')
 
@@ -23,6 +21,24 @@ const sequelize = new Sequelize('proyectos', 'root', 'root', {
 const app = express.Router()
 const debug = new Debug('backend.express:root')
 
+const User = sequelize.define('usuario', {
+  firstName: {
+    type: Sequelize.STRING
+  },
+  lastName: {
+    type: Sequelize.STRING
+  }
+});
+
+// force: true will drop the table if it already exists
+User.sync({force: true}).then(() => {
+  // Table created
+  return User.create({
+    firstName: 'John',
+    lastName: 'Hancock'
+  });
+});
+
 /* sequelize.authenticate()
 .then(() => {
   debug('Connection has been established successfully.')
@@ -33,13 +49,9 @@ const debug = new Debug('backend.express:root')
 
 // GET /api/questions
 app.get('/', async (req, res) => {
-  debug('ooooooooooooooooo')
-  try {
-    const questions = 'iiiiiiiiiiiii'
-    res.status(200).json(questions)
-  } catch (error) {
-    handleError(error, res)
-  }
+  User.findAll().then(users => {
+    res.status(200).json(users)
+  })
 })
 
 export default app
