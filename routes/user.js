@@ -28,15 +28,16 @@ const User = sequelize.define('usuario', {
   lastName: {
     type: Sequelize.STRING
   }
+  ,
+  address: {
+    type: Sequelize.STRING
+  }
 });
 
 // force: true will drop the table if it already exists
 User.sync({force: true}).then(() => {
   // Table created
-  return User.create({
-    firstName: 'John',
-    lastName: 'Hancock'
-  });
+  return User.create({ firstName: 'John', lastName: 'Hancock', address: 'Villa 1' });
 });
 
 /* sequelize.authenticate()

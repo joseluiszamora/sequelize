@@ -1,14 +1,14 @@
 import http from 'http'
 import Debug from 'debug'
 import app from './app'
+import env from './config/env'
 
-const PORT = 3000
 const debug = new Debug('backend.express:root')
 
 async function start() {
-    app.listen(PORT, () => {
-        debug(`Server running at port ${PORT}`)
-    })
+  app.listen(env.PORT, () => {
+  	debug(`Server running at port ${env.PORT}`)
+  })
 }
 
 start()
