@@ -1,13 +1,14 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import { question, user } from './routes'
+import { question, user, linea } from './routes'
+import env from './config/env'
 
 const app = express()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-if (process.env.NODE_ENV === 'development') {
+if (env.NODE_ENV === 'development') {
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Request-With, Content-Type, Accept')
@@ -18,6 +19,7 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use('/api/questions', question)
 app.use('/api/user', user)
+app.use('/api/linea', linea)
 // app.use('/api/auth', auth)
 
 export default app
